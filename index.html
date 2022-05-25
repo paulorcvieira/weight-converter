@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Peso</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+  }
+  body{
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #8257e5 0%, #8257e6 0%, #141316 100%, #121214 100%);
+  }
+  ::selection{
+    color: #fff;
+    background: #8257e5;
+  }
+  .wrapper{
+    position: absolute;
+    max-width: 480px;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    padding: 4rem 3rem;
+    background: #fff;
+    border-radius: 1.5rem;
+    /* pointer-events: none; */
+    transform: translate(-50%, -50%);
+    box-shadow: 1rem 1rem 1.5rem rgba(0,0,0,0.06);
+    transition: opacity 0.2s 0s ease-in-out,
+                transform 0.2s 0s ease-in-out;
+  }
+  .wrapper .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wrapper .content{
+    flex-direction: column;
+  }
+  .content h2{
+    font-size: 2.8rem;
+  }
+  .content p{
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 3.5rem;
+    color: #696969;
+  }
+  .input-wrapper:not(:last-child){
+    margin-bottom: 2rem;
+  }
+  .input-wrapper label{
+    display: block;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #696969;
+  }
+  .input-wrapper input{
+    display: block;
+    width: 100%;
+    font-size: 2rem;
+    border: 0.1rem solid #a0a0a0;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+  .btn{
+    height: 5.7rem;
+    width: 22.3rem;
+    margin-top: 3rem;
+    border-radius: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn .bg-layer{
+    height: 100%;
+    width: 300%;
+    position: absolute;
+    left: -100%;
+    background: -webkit-linear-gradient(135deg, #8257e5, #141316, #8257e5, #141316);
+    transition: all 0.4s ease;
+  }
+  .btn:hover .bg-layer{
+    left: 0;
+  }
+  .content button{
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: none;
+    font-size: 1.8rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  @media screen and (max-width: 28rem){
+    .wrapper{
+      font-size: 1.4rem;
+    }
+  }
+</style>
+<body>
+  <div class="wrapper">
+    <div class="content">
+      <h2>Conversor de Peso</h2>
+      <p>Digite o valor em um dos campos</p>
+      
+      <div class="input-wrapper">
+        <label for="kg">Kilograma:</label>
+        <input type="number" id="kg" value="10">
+      </div>
+      
+      <div class="input-wrapper">
+        <label for="lb">Libra:</label>
+        <input type="number" id="lb" value="10">
+      </div>
+      
+      <div class="input-wrapper">
+        <label for="oz">Onça:</label>
+        <input type="number" id="oz" value="10">
+      </div>
+
+      <div class="btn">
+        <div class="bg-layer"></div>
+        <button id="reset">Resetar</button>
+      </div>
+    </div>
+  </div>
+
+  <script >
+    let kgRef = document.getElementById("kg");
+    let lbRef = document.getElementById("lb");
+    let ozRef = document.getElementById("oz");
+    let resetRef = document.getElementById("reset");
+
+    let convertFromKg = () => {
+      let kg = kgRef.value;
+      let lb = (kg * 2.20462).toFixed(2);
+      let oz = (kg * 35.274).toFixed(2);
+      lbRef.value = lb;
+      ozRef.value = oz;
+    }
+
+    let convertFromLb = () => {
+      let lb = lbRef.value;
+      let kg = (lb / 2.20462).toFixed(2);
+      let oz = (lb * 16).toFixed(2);
+      kgRef.value = kg;
+      ozRef.value = oz;
+    }
+
+    let convertFromOz = () => {
+      let oz = ozRef.value;
+      let lb = (oz / 16).toFixed(2);
+      let kg = (oz / 35.274).toFixed(2);
+      lbRef.value = lb;
+      kgRef.value = kg;
+    }
+
+    let reset = () => {
+      kgRef.value = 0;
+      lbRef.value = 0;
+      ozRef.value = 0;
+    }
+
+    kgRef.addEventListener("input", convertFromKg);
+    lbRef.addEventListener("input", convertFromLb);
+    ozRef.addEventListener("input", convertFromOz);
+    resetRef.addEventListener("click", reset);
+    window.addEventListener("load", convertFromKg);
+  </script>
+
+</body>
+</html>
